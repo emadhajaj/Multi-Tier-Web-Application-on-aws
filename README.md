@@ -1679,6 +1679,6 @@ chmod +x /home/ec2-user/health_check.sh
 
 # Test the Project
 
-[adding new user.mp4
+![adding new user.mp4
 ](https://github.com/emadhajaj/Multi-Tier-Web-Application-on-aws/blob/main/adding%20new%20user.mp4)
 
