@@ -1,4 +1,43 @@
 # Multi-Tier Web Application Architecture on AWS
+
+- [Multi-Tier Web Application Architecture on AWS](#multi-tier-web-application-architecture-on-aws)
+  - [Requirements](#requirements)
+  - [Designer’s Notes](#designers-notes)
+    - [Services Choice](#services-choice)
+    - [Total Cost Summary](#total-cost-summary)
+    - [Cost Optimization Recommendations](#cost-optimization-recommendations)
+    - [Architecture Compliance Matrix](#architecture-compliance-matrix)
+  - [Implementation](#implementation)
+    - [Networking and Security](#networking-and-security)
+      - [1. Create VPC and Subnets](#1-create-vpc-and-subnets)
+      - [2. Create the Admins IAM Group](#2-create-the-admins-iam-group)
+      - [3. Create Your IAM Users](#3-create-your-iam-users)
+      - [4. Create the EC2 Role (Instance Profile) for SSM](#4-create-the-ec2-role-instance-profile-for-ssm)
+      - [5. Create Security Groups](#5-create-security-groups)
+    - [Computing](#computing)
+      - [6. Create App Tier Launch Template](#6-create-app-tier-launch-template)
+      - [7. Create App Target Group](#7-create-app-target-group)
+      - [8. Create App Application Load Balancer (Internal)](#8-create-app-application-load-balancer-internal)
+      - [9. Create App Tier Auto Scaling Group](#9-create-app-tier-auto-scaling-group)
+      - [10. Create Web Tier Launch Template](#10-create-web-tier-launch-template)
+      - [11. Create Web Target Group](#11-create-web-target-group)
+      - [12. Create Web Application Load Balancer (Internet-facing)](#12-create-web-application-load-balancer-internet-facing)
+      - [13. Create Web Tier Auto Scaling Group](#13-create-web-tier-auto-scaling-group)
+      - [14. Test Web ALB](#14-test-web-alb)
+      - [15. CloudFront Integration for Global Performance](#15-cloudfront-integration-for-global-performance)
+      - [16. Create VPC Endpoints for SSM](#16-create-vpc-endpoints-for-ssm)
+    - [Database](#database)
+      - [17. Create RDS Database](#17-create-rds-database)
+      - [18. Create Enhanced SQS Setup](#18-create-enhanced-sqs-setup)
+      - [19. Create Lambda Function for SQS Processing](#19-create-lambda-function-for-sqs-processing)
+	  - [20. Create Database](#20-create-database)
+	  - [21. Edit the user data of the Web launch templates](#21-edit-the-user-data-of-the-web-launch-templates)
+	  - [22. Edit the user data of the App launch templates](#22-edit-the-user-data-of-the-app-launch-templates)
+	  - [23. Domain & SSL Setup](#23-domain--ssl-setup)
+	  - [24. Monitoring & Logging](#24-monitoring--logging)
+	  - [25. Security Hardening](#25-security-hardening)
+
+
 ## Requirements
 
 1. The application will be launched in a VPC with CIDR block `10.0.0.0/16` with:
@@ -1636,9 +1675,22 @@ chmod +x /home/ec2-user/health_check.sh
 
 ---
 
+### 23. Domain & SSL Setup
+
+- Register your domain in **Route 53**
+- Create a **hosted zone** and configure DNS records:
+    - `A` record → Alias → CloudFront Distribution.
+    - `CNAME` records for subdomains if needed.
+    
+- Use **AWS Certificate Manager (ACM)** to request a public SSL/TLS certificate for your domain.
+- Attach the certificate to CloudFront and ALBs (Web + App if required).
+- Force HTTPS redirection at the ALB/CloudFront level.
+
+---
+
 ## Monitoring
 
-### 23. Monitoring & Logging
+### 24. Monitoring & Logging
 
 1. **Enable CloudWatch Alarms**:
     - Web/App EC2 CPU, memory (via CloudWatch agent), disk usage.
@@ -1664,7 +1716,7 @@ chmod +x /home/ec2-user/health_check.sh
 
 ## Security
 
-### 24. Security Hardening
+## 25. Security Hardening
 
 - Enable **AWS WAF** on CloudFront to protect against DDoS, SQLi, XSS.
 - Rotate IAM user access keys (use IAM roles instead).
@@ -1676,9 +1728,4 @@ chmod +x /home/ec2-user/health_check.sh
 - Enable **GuardDuty + Security Hub** for continuous monitoring.    
 
 ---
-
-# Test the Project
-
-![adding new user.mp4
-](https://github.com/emadhajaj/Multi-Tier-Web-Application-on-aws/blob/main/adding%20new%20user.mp4)
 
