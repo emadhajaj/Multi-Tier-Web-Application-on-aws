@@ -1,7 +1,3 @@
-
-```table-of-contents
-```
-
 # Multi-Tier Web Application Architecture on AWS
 ## Requirements
 
@@ -211,7 +207,7 @@ The goal is to have the most cost-effective AWS architecture design using Free T
 	- Make sure to make the public route table route 0.0.0.0/0 to the IGW
 - Create Nat Gateway for the private instance to update and route it
 
-![[image-1.png]]
+<img width="1196" height="462" alt="image" src="https://github.com/user-attachments/assets/b66f59d1-4edc-499e-ac84-52dbb8711a00" />
 
 
 
