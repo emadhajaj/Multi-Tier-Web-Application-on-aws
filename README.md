@@ -614,7 +614,8 @@ EOF
 
 1. Get the Web ALB DNS name from the console
 2. Access `http://your-web-alb-dns-name` in browser
-	![[image-3.png]]
+   <img width="608" height="399" alt="image" src="https://github.com/user-attachments/assets/7a106df7-21f1-4fcf-8d76-6e0bef35fb68" />
+
 3. Test the buttons in the End
 
 
@@ -674,7 +675,7 @@ Your private EC2 instances need to communicate with AWS SSM service. Instead of 
 - Engine: **MySQL**
 - Engine version: **8.0.35** (latest)
 - Template: **Free tier** (if eligible)
-- **Multi-AZ deployment**: Yes ✅
+- **Multi-AZ deployment**: Yes 
 
 **Settings:**
 - DB instance identifier: `webapp-db`
@@ -687,7 +688,7 @@ Your private EC2 instances need to communicate with AWS SSM service. Instead of 
 **Storage:**
 - Storage type: **gp2**
 - Allocated storage: **20 GB**
-- Enable storage encryption: **Yes** ✅
+- Enable storage encryption: **Yes** 
 - KMS key: **Default**
 
 **Connectivity:**
@@ -1663,7 +1664,7 @@ chmod +x /home/ec2-user/health_check.sh
 
 ## Security
 
-## 24. Security Hardening
+### 24. Security Hardening
 
 - Enable **AWS WAF** on CloudFront to protect against DDoS, SQLi, XSS.
 - Rotate IAM user access keys (use IAM roles instead).
@@ -1675,5 +1676,9 @@ chmod +x /home/ec2-user/health_check.sh
 - Enable **GuardDuty + Security Hub** for continuous monitoring.    
 
 ---
+
+# Test the Project
+
+
 
 
